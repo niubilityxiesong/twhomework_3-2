@@ -1,15 +1,34 @@
 const bestCharge = require('../src/best-charge');
-const translate_Order_Information = require('../src/translate_Order_Information')
+const translate_Order_Information = require('../src/translate_Order_Information');
+const loadAllItems = require('../src/items');
+const origin_Every_Price = require('../src/origin_Every_Price');
+const loadPromotions = require('../src/promotions');
 
 
 describe('Take out food', function () {
 
-  it('translate inputs and calculate every order`s price', function () {
+  it('should return menu id and count', function () {
     let inputs = ["ITEM0001 x 1"];
-    let result = [];
-    result = translate_Order_Information(inputs);
-    expect(result["ITEM0001"]).toEqual(1);
+    let menuData = loadAllItems();
+    let result = translate_Order_Information(inputs, menuData);
+    expect(result["黄焖鸡"]).toEqual(1);
   });
+
+  it('should return origin price given menu', function () {
+    let inputs = ["ITEM0001 x 1"];
+    let menuData = loadAllItems();
+    let menu = translate_Order_Information(inputs, menuData);
+    let result = origin_Every_Price(menu, menuData);
+    expect(result[0]).toEqual(18);
+  });
+
+  it('should return lowest price', function () {
+    let inputs = ["ITEM0001 x 1", "ITEM0013 x 2", "ITEM0022 x 1"];
+    let menuData = loadAllItems();
+    let menu = translate_Order_Information(inputs, menuData);
+    let originPrice = origin_Every_Price(menu, menuData);
+    let
+  })
 
   it('should generate best charge when best is 指定菜品半价', function() {
     let inputs = ["ITEM0001 x 1", "ITEM0013 x 2", "ITEM0022 x 1"];

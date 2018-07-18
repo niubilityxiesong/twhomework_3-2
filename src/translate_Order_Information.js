@@ -1,4 +1,4 @@
-module.exports = function translate_Order_Information(inputIds) {
+module.exports = function translate_Order_Information(inputIds, menuData) {
   let orderMenu = [];
   let locationX = [];
 
@@ -11,7 +11,11 @@ module.exports = function translate_Order_Information(inputIds) {
   }
 
   for (let i = 0; i < inputIds.length; i++) {
-    orderMenu[inputIds[i].slice(0,locationX[i] - 1)] = parseInt(inputIds[i].slice(locationX[i] + 2));
+    for (let j = 0; j < menuData.length; j++) {
+      if(menuData[j]["id"] === inputIds[i].slice(0,locationX[i] - 1)){
+        orderMenu[menuData[j]["name"]] = parseInt(inputIds[i].slice(locationX[i] + 2));
+      }
+    }
   }
 
   return orderMenu;
