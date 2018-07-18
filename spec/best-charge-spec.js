@@ -3,6 +3,7 @@ const translate_Order_Information = require('../src/translate_Order_Information'
 const loadAllItems = require('../src/items');
 const origin_Every_Price = require('../src/origin_Every_Price');
 const loadPromotions = require('../src/promotions');
+const lowest_Price_Programme = require('../src/lowest_Price_Programme');
 
 
 describe('Take out food', function () {
@@ -15,19 +16,22 @@ describe('Take out food', function () {
   });
 
   it('should return origin price given menu', function () {
-    let inputs = ["ITEM0001 x 1"];
+    let inputs = ["ITEM0001 x 2"];
     let menuData = loadAllItems();
     let menu = translate_Order_Information(inputs, menuData);
     let result = origin_Every_Price(menu, menuData);
-    expect(result[0]).toEqual(18);
+    expect(result["ITEM0001"]).toEqual(36);
   });
 
-  it('should return lowest price', function () {
+  it('should return lowest price programme', function () {
     let inputs = ["ITEM0001 x 1", "ITEM0013 x 2", "ITEM0022 x 1"];
     let menuData = loadAllItems();
     let menu = translate_Order_Information(inputs, menuData);
     let originPrice = origin_Every_Price(menu, menuData);
-    let
+    let discountData = loadPromotions();
+    let result = lowest_Price_Programme(discountData[1]["items"], originPrice);
+
+    expect(result['planB']).toEqual(25);
   })
 
   it('should generate best charge when best is 指定菜品半价', function() {
