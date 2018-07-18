@@ -1,6 +1,15 @@
 const bestCharge = require('../src/best-charge');
+const translate_Order_Information = require('../src/translate_Order_Information')
+
 
 describe('Take out food', function () {
+
+  it('translate inputs and calculate every order`s price', function () {
+    let inputs = ["ITEM0001 x 1"];
+    let result = [];
+    result = translate_Order_Information(inputs);
+    expect(result["ITEM0001"]).toEqual(1);
+  });
 
   it('should generate best charge when best is 指定菜品半价', function() {
     let inputs = ["ITEM0001 x 1", "ITEM0013 x 2", "ITEM0022 x 1"];
