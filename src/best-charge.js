@@ -1,5 +1,8 @@
-const loadAllItems = require('/src/items');
+const loadAllItems = require('../src/items');
+const loadPromotions = require('../src/promotions');
 
-function bestCharge(selectedItems) {
-
+module.exports = function bestCharge(selectedItems) {
+  console.log(loadAllItems());
+  console.log(loadPromotions());
+  return '1';
 }
