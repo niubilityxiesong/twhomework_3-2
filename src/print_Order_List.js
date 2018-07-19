@@ -1,4 +1,4 @@
-module.exports = function print_Order_List(orderMenu, originPrice, discountMessage) {
+module.exports = function print_Order_List(orderMenu, originPrice, discountMessage, discountName) {
   let resultList = '';
   let keyMenu = Object.keys(orderMenu);
   let keyPrice = Object.keys(originPrice);
@@ -25,7 +25,7 @@ module.exports = function print_Order_List(orderMenu, originPrice, discountMessa
 
   if(keyMessage[0] === "planB"){
     resultList += '使用优惠:\n';
-    resultList += ('指定菜品半价(黄焖鸡，凉皮)，省' + (sumPrice - discountMessage["planB"]) + '元\n');
+    resultList += ('指定菜品半价(' + discountName[0] + '，' + discountName[1] + ')，省' + (sumPrice - discountMessage["planB"]) + '元\n');
     resultList += '-----------------------------------\n';
     resultList += '总计：' + discountMessage['planB'] + '元\n';
   }
